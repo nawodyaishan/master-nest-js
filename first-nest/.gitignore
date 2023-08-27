@@ -578,7 +578,6 @@ fabric.properties
 /.idea/modules.xml
 /.idea/prettier.xml
 /.idea/vcs.xml
-!/dist/
 .idea/workspace.xml
 /dist/app.controller.d.ts
 /dist/app.controller.js
@@ -592,3 +591,9 @@ fabric.properties
 /dist/main.d.ts
 /dist/main.js
 /dist/main.js.map
+/dist/events.controller.d.ts
+/dist/events.controller.js
+/dist/events.controller.js.map
+/dist/events.service.d.ts
+/dist/events.service.js
+/dist/events.service.js.map
