@@ -11,4 +11,8 @@ export class AppService {
   getHello(): string {
     return 'Hello World!';
   }
+
+  getString(id: string) {
+    return id;
+  }
 }

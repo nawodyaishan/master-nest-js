@@ -16,4 +16,10 @@ export class AppController {
     console.log('🚀 Called Hello World');
     return this.appService.getHello();
   }
+
+  @Get(['/bye:id', '/home:id'])
+  getMessage(id: string) {
+    console.log('🚀 Called getBye - id =', id);
+    return this.appService.getString(id);
+  }
 }
