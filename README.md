@@ -152,5 +152,3 @@ This API allows you to manage events and their associated information.
     "message": "Event removed successfully"
   }
   ```
-
-Please adjust the documentation according to your API's functionality, and you can also include additional information such as error responses, headers, and authentication requirements based on your project's needs.
