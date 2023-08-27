@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Logger,
   Param,
   Patch,
@@ -94,6 +95,7 @@ export class EventsController {
   }
 
   @Delete(':id')
+  @HttpCode(204)
   remove(@Param('id') id: string) {
     this.logger.log(`DELETE request received for /events/${id}`);
     return this.appService.getString(id);
