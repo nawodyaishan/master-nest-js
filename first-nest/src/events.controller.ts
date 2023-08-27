@@ -8,7 +8,7 @@ import {
   Param,
   Patch,
   Post,
-} from '@nestjs/common'; // Import the Logger module
+} from '@nestjs/common';
 import { EventsService } from './events.service';
 import { AppService } from './app.service';
 import { CreateEventDto, HealthUtils } from './create-event.dto';
@@ -17,54 +17,78 @@ import { EventEntity } from './event.entity';
 @Controller('/events')
 export class EventsController {
   private readonly logger = new Logger(EventsController.name);
-  private events: EventEntity[] = [];
+  private readonly events: EventEntity[] = [];
 
   constructor(
     private readonly eventsService: EventsService,
     private readonly appService: AppService,
   ) {}
 
+  /**
+   * Get all events.
+   *
+   * @returns An array of EventEntity objects.
+   */
   @Get()
-  findAll() {
+  findAll(): EventEntity[] {
     this.logger.log('GET request received for /events');
     return this.events;
   }
 
+  /**
+   * Get an event by ID.
+   *
+   * @param id - The ID of the event to retrieve.
+   * @returns An array of Person objects associated with the event.
+   */
   @Get(':id')
-  findOne(@Param('id') id: number) {
+  findOne(@Param('id') id: number): EventEntity {
     this.logger.log(`GET request received for /events/${id}`);
-    const eventWithId = this.events.find((event) => event.id === id);
-    this.logger.log(eventWithId);
-    return eventWithId.personList;
+    const eventWithId = this.events.find((event) => (event.id = id));
+    this.logger.log(eventWithId.id);
+    return eventWithId;
   }
 
+  /**
+   * Create a new event.
+   *
+   * @param person - The data for the new event.
+   * @returns A success message.
+   */
   @Post()
-  create(@Body() person: CreateEventDto) {
+  create(@Body() person: CreateEventDto): string {
     try {
       this.logger.log('POST request received for /events', person);
       this.logger.log(
         'POST request received for /events',
         HealthUtils.displayHealth(person.healthStatus),
       );
-      this.events.push(this.eventsService.getPerson(person));
+      this.events.push(this.eventsService.getEvent([person]));
       return this.appService.getString(person.name);
     } catch (e) {
       this.logger.log(e);
     }
   }
 
+  /**
+   * Create multiple events.
+   *
+   * @param inputs - An array of data for creating multiple events.
+   * @returns An array of names for the created events.
+   */
   @Post('/all')
-  createAll(@Body() inputs: CreateEventDto[]) {
+  createAll(@Body() inputs: CreateEventDto[]): string[] {
     try {
       const persons: string[] = [];
-      inputs.map((person) => {
+      this.events.push(this.eventsService.getEvent(inputs));
+      inputs.forEach((person) => {
         this.logger.log('POST request received for /events', person);
         this.logger.log(
           'POST request received for /events',
           HealthUtils.displayHealth(person.healthStatus),
         );
-        this.events.push(this.eventsService.getPerson(person));
         persons.push(person.name);
+        return persons;
       });
       return persons;
     } catch (e) {
@@ -72,15 +96,36 @@ export class EventsController {
     }
   }
 
+  /**
+   * Update an event by ID.
+   *
+   * @param id - The ID of the event to update.
+   * @param eventEntity
+   * @returns A string indicating the updated event.
+   */
   @Patch(':id')
-  update(@Param('id') id: string, @Body() input: any) {
-    this.logger.log(`PATCH request received for /events/${id}`);
-    return this.appService.getString(id + ' ' + input);
+  update(@Param('id') id: number, @Body() eventEntity: EventEntity) {
+    try {
+      this.logger.log(`PATCH request received for /events/${eventEntity}`);
+      const eventById = this.events.find((event) => (event.id = id));
+      eventById.id = eventEntity.id;
+      eventById.when = eventEntity.when;
+      eventById.personList = eventEntity.personList;
+      return eventById;
+    } catch (e) {
+      this.logger.log(e);
+    }
   }
 
+  /**
+   * Remove an event by ID.
+   *
+   * @param id - The ID of the event to remove.
+   * @returns A string indicating the removed event.
+   */
   @Delete(':id')
   @HttpCode(204)
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: string): string {
     this.logger.log(`DELETE request received for /events/${id}`);
     return this.appService.getString(id);
   }

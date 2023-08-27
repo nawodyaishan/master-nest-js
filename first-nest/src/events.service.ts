@@ -8,14 +8,16 @@ export class EventsService {
   getHello(): string {
     return 'Hello World!';
   }
-  getPerson(person: Person): EventEntity {
+
+  getEvent(persons: Person[]): EventEntity {
     const newId = Math.floor(Math.random() * 1000);
     return {
       id: newId,
-      personList: person,
+      personList: persons,
       when: this.getRandomDate(),
     };
   }
+
   getRandomDate(): Date {
     const randomYear = Math.floor(Math.random() * (2100 - 1970 + 1)) + 1970;
     const randomMonth = Math.floor(Math.random() * 12);
