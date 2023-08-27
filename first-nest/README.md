@@ -25,7 +25,19 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+**Features:**
+- Create new events with person information.
+- Retrieve events and associated details.
+- Update event details by ID.
+- Delete events by ID.
+- API documentation for each endpoint.
+- Unit testing with Jest.
+- Logging with request tracking.
+
+**Technologies:**
+- Nest.js framework
+- TypeScript
+- Jest testing framework
 
 ## Installation
 
