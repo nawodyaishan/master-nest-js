@@ -577,3 +577,5 @@ fabric.properties
 /.idea/modules.xml
 /.idea/prettier.xml
 /.idea/vcs.xml
+!/dist/
+.idea/workspace.xml
