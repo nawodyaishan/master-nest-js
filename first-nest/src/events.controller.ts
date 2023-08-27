@@ -21,7 +21,7 @@ import { EventEntity } from './event.entity';
 @Controller('/events')
 export class EventsController {
   private readonly logger = new Logger(EventsController.name);
-  private readonly events: EventEntity[] = [];
+  private events: EventEntity[] = [];
 
   constructor(
     private readonly eventsService: EventsService,
@@ -125,20 +125,18 @@ export class EventsController {
    * Remove an event by ID.
    *
    * @param id - The ID of the event to remove.
-   * @returns An object indicating the result of the removal operation.
+   * @returns A string indicating the removed event.
    */
   @Delete(':id')
   @HttpCode(204)
   remove(@Param('id') id: string): removeResponse {
     this.logger.log(`DELETE request received for /events/${id}`);
-    const eventIndex = this.events.findIndex(
-      (event) => event.id === parseInt(id),
-    );
-
-    if (eventIndex !== -1) {
-      this.events.splice(eventIndex, 1); // Remove the event from the events array
+    if (!!this.events.find((event) => (event.id = parseInt(id)))) {
+      this.events = this.events.filter((event) => event.id !== parseInt(id));
       this.logger.log(`DELETE request successful for /events/${id}`);
-      this.logger.log(`Remaining events: ${this.events.map((e) => e.id)}`);
+      this.logger.log(
+        `DELETE request successful for /events/${this.events.map((e) => e.id)}`,
+      );
       return { eventList: this.events, message: 'DELETE request successful' };
     } else {
       this.logger.log(`DELETE request failed for /events/${id}`);
