@@ -1,5 +1,5 @@
-import { Controller, Get } from "@nestjs/common";
-import { AppService } from "./app.service";
+import { Controller, Get } from '@nestjs/common';
+import { AppService } from './app.service';
 
 // The @Controller() decorator marks this class as a controller.
 @Controller()

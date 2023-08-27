@@ -580,3 +580,15 @@ fabric.properties
 /.idea/vcs.xml
 !/dist/
 .idea/workspace.xml
+/dist/app.controller.d.ts
+/dist/app.controller.js
+/dist/app.controller.js.map
+/dist/app.module.d.ts
+/dist/app.module.js
+/dist/app.module.js.map
+/dist/app.service.d.ts
+/dist/app.service.js
+/dist/app.service.js.map
+/dist/main.d.ts
+/dist/main.js
+/dist/main.js.map
