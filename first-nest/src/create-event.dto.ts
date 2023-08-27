@@ -1,3 +1,5 @@
+import { EventEntity } from './event.entity';
+
 export enum Health {
   Fine,
   Bad,
@@ -22,6 +24,11 @@ export interface Person {
   name: string;
   age: number;
   healthStatus: Health;
+}
+
+export interface removeResponse {
+  eventList: EventEntity[];
+  message: string;
 }
 
 // export class CreateEventDto extends PartialType(CreateEventDto) {

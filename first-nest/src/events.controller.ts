@@ -11,7 +11,11 @@ import {
 } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { AppService } from './app.service';
-import { CreateEventDto, HealthUtils } from './create-event.dto';
+import {
+  CreateEventDto,
+  HealthUtils,
+  removeResponse,
+} from './create-event.dto';
 import { EventEntity } from './event.entity';
 
 @Controller('/events')
@@ -121,12 +125,24 @@ export class EventsController {
    * Remove an event by ID.
    *
    * @param id - The ID of the event to remove.
-   * @returns A string indicating the removed event.
+   * @returns An object indicating the result of the removal operation.
    */
   @Delete(':id')
   @HttpCode(204)
-  remove(@Param('id') id: string): string {
+  remove(@Param('id') id: string): removeResponse {
     this.logger.log(`DELETE request received for /events/${id}`);
-    return this.appService.getString(id);
+    const eventIndex = this.events.findIndex(
+      (event) => event.id === parseInt(id),
+    );
+
+    if (eventIndex !== -1) {
+      this.events.splice(eventIndex, 1); // Remove the event from the events array
+      this.logger.log(`DELETE request successful for /events/${id}`);
+      this.logger.log(`Remaining events: ${this.events.map((e) => e.id)}`);
+      return { eventList: this.events, message: 'DELETE request successful' };
+    } else {
+      this.logger.log(`DELETE request failed for /events/${id}`);
+      return { eventList: this.events, message: 'Event not found' };
+    }
   }
 }
