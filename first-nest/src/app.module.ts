@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { EventsController } from './events.controller';
+import { EventsService } from './events.service';
 
 @Module({
   // The `imports` array is used to import other modules.
@@ -9,10 +11,10 @@ import { AppService } from './app.service';
 
   // The `controllers` array specifies the controllers to be registered within this module.
   // Controllers handle incoming HTTP requests and define the API endpoints.
-  controllers: [AppController],
+  controllers: [AppController, EventsController],
 
   // The `providers` array defines the services that can be injected into other components.
   // Services encapsulate the business logic of the application.
-  providers: [AppService],
+  providers: [AppService, EventsService],
 })
 export class AppModule {}

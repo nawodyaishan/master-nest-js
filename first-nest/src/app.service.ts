@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable } from '@nestjs/common';
 
 // The @Injectable() decorator marks this class as a service.
 @Injectable()
