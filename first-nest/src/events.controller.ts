@@ -131,8 +131,14 @@ export class EventsController {
   @HttpCode(204)
   remove(@Param('id') id: string): removeResponse {
     this.logger.log(`DELETE request received for /events/${id}`);
-    if (!!this.events.find((event) => (event.id = parseInt(id)))) {
-      this.events = this.events.filter((event) => event.id !== parseInt(id));
+    const eventToRemove = this.events.find(
+      (event) => event.id === parseInt(id),
+    );
+
+    if (eventToRemove) {
+      this.events = this.events.filter(
+        (event) => event.id !== eventToRemove.id,
+      );
       this.logger.log(`DELETE request successful for /events/${id}`);
       this.logger.log(
         `DELETE request successful for /events/${this.events.map((e) => e.id)}`,
