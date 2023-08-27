@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { AppService } from './app.service';
 
 // The @Controller() decorator marks this class as a controller.
@@ -17,9 +17,15 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Get(['/bye:id', '/home:id'])
-  getMessage(id: string) {
-    console.log('🚀 Called getBye - id =', id);
+  /**
+   * Get a message based on the provided dynamic ID parameter.
+   *
+   * @param id - The dynamic ID parameter extracted from the route.
+   * @returns A string containing the message.
+   */
+  @Get('/message:id') // Define the dynamic parameter using :id
+  getMessage(@Param('id') id: string) {
+    console.log('🚀 Called getMessage - id =', id);
     return this.appService.getString(id);
   }
 }
