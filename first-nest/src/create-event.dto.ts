@@ -1,4 +1,7 @@
-import { Health } from './events.controller';
+export enum Health {
+  Fine,
+  Bad,
+}
 
 export class HealthUtils {
   static displayHealth(health: Health): string {
@@ -13,7 +16,9 @@ export class HealthUtils {
   }
 }
 
-export interface CreateEventDto {
+export interface CreateEventDto extends Person {}
+
+export interface Person {
   name: string;
   age: number;
   healthStatus: Health;
