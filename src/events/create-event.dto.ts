@@ -31,8 +31,3 @@ export interface removeResponse {
   message: string;
 }
 
-// export class CreateEventDto extends PartialType(CreateEventDto) {
-//   name: string;
-//   age: number;
-//   healthStatus: Health;
-// }
