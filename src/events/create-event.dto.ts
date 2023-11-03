@@ -34,12 +34,12 @@ export interface removeResponse {
   message: string;
 }
 
-@Entity()
+@Entity('Persons')
 export class PersonEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ length: 100 })
   name: string;
 
   @Column()

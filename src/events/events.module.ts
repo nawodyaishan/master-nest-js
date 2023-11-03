@@ -3,6 +3,7 @@ import { EventsController } from './events.controller';
 import { EventsService } from './events.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EventEntity } from './event.entity';
+import { PersonEntity } from './create-event.dto';
 
 @Module({
   // The `controllers` array specifies the controllers to be registered within this module.
@@ -16,7 +17,7 @@ import { EventEntity } from './event.entity';
       username: 'postgres',
       password: '4453',
       database: 'nest-events',
-      entities: [EventEntity],
+      entities: [EventEntity, PersonEntity],
       synchronize: true,
     }),
   ],

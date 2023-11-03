@@ -1,7 +1,7 @@
 import { PersonEntity } from './create-event.dto';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity('Events')
 export class EventEntity {
   @PrimaryGeneratedColumn()
   id: number;
