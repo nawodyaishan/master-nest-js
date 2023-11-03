@@ -1,4 +1,11 @@
 import { EventEntity } from './event.entity';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 export enum Health {
   Fine,
@@ -18,15 +25,35 @@ export class HealthUtils {
   }
 }
 
-export interface CreateEventDto extends Person {}
+export interface CreateEventDto extends PersonEntity {}
 
-export interface Person {
-  name: string;
-  age: number;
-  healthStatus: Health;
-}
+export interface Person extends PersonEntity {}
 
 export interface removeResponse {
   eventList: EventEntity[];
   message: string;
+}
+
+@Entity()
+export class PersonEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
+  name: string;
+
+  @Column()
+  age: number;
+
+  @Column({
+    type: 'enum',
+    enum: Health,
+    default: Health.Fine,
+  })
+  healthStatus: Health;
+
+  // Relation back to the EventEntity
+  @ManyToOne(() => EventEntity, (event) => event.personList)
+  @JoinColumn() // This decorator is optional if you use default column names
+  event: EventEntity;
 }
