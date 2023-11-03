@@ -30,4 +30,3 @@ export interface removeResponse {
   eventList: EventEntity[];
   message: string;
 }
-
