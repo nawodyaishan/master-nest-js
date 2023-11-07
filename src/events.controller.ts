@@ -30,7 +30,7 @@ export class EventsController {
   }
 
   @Get(':id') // Decorator to define a GET route handler with a parameter ':id'
-  async findOne(@Param('id') id) {
+  async findOne(@Param('id') id): Promise<Event> {
     // Asynchronous function to handle GET requests for a specific event by ID
     return await this.repository.findOne(id); // Return the event with the specified ID from the repository
   }
